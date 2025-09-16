@@ -1,0 +1,15 @@
+### Health Check
+Get http://localhost:5075/health/neo4j
+
+
+### Get Things
+Get http://localhost:5075/things
+
+
+### auth
+POST http://localhost:5075/things
+Content-Type: application/json
+
+{
+  "name": "A Cookie"
+}
