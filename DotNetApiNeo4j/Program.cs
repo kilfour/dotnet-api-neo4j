@@ -55,7 +55,7 @@ app.MapPost("/things", async (INeoSessionFactory sessions, Thing input, Cancella
 });
 
 // ------------------------------------------------------------------------------------------
-// Create Things
+// All Things
 // -- 
 app.MapGet("/things", async (INeoSessionFactory sessions) =>
 {
@@ -74,5 +74,45 @@ app.MapGet("/things", async (INeoSessionFactory sessions) =>
 
     return Results.Ok(items);
 });
+
+// ------------------------------------------------------------------------------------------
+// One Thing
+// -- 
+app.MapGet("/things/{id}", async (string id, INeoSessionFactory sessions) =>
+{
+    await using var s = sessions.OpenRead();
+    var thing = await s.ExecuteReadAsync(async tx =>
+    {
+        var result = await tx.RunAsync(
+            "MATCH (c:Case {id:'" + id + "'}) RETURN c.id AS id, c.name AS name",
+            new { id });
+        return await result.SingleAsync();
+    });
+    return Results.Ok(new Thing(
+            thing["id"].As<string>(),
+            thing["name"].As<string>()
+        ));
+});
+
+// app.MapGet("/things/{id}", async (string id, INeoSessionFactory sessions) =>
+// {
+//     await using var s = sessions.OpenRead();
+
+//     return await s.ExecuteReadAsync<IResult>(async tx =>
+//     {
+//         var cursor = await tx.RunAsync(
+//             "MATCH (c:Case {id:$id}) RETURN c.id AS id, c.name AS name", new { id });
+
+//         var record = await cursor.SingleAsync();
+//         if (record is null) return Results.NotFound();
+
+//         var thing = new Thing(
+//             record["id"].As<string>(),
+//             record["name"].As<string>());
+
+//         return Results.Ok(thing);
+//     }, ct);
+// });
+
 
 app.Run();

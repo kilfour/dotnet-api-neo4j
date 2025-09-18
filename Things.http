@@ -5,6 +5,9 @@ Get http://localhost:5075/health/neo4j
 ### Get Things
 Get http://localhost:5075/things
 
+### Get a Things
+Get http://localhost:5075/things/7275329cbf4e4d9291b0de4625367b86
+
 
 ### auth
 POST http://localhost:5075/things
