@@ -4,14 +4,14 @@
 
 1. Download [Neo4j Desktop](https://neo4j.com/download/).
 2. Create a **new project**, add a **local database** (v5.x).
-3. Choose a password (e.g. `testtest` for exercises).
+3. Choose a password (e.g. `test1234` for exercises).
 4. Start the database → green dot = running.
 
 **Connection details**:
 
 * **Bolt URI**: `bolt://localhost:7687`
 * **User**: `neo4j`
-* **Password**: your password (`testtest` in examples)
+* **Password**: your password (`test12` in examples)
 
 ---
 ## Add Package 
@@ -28,7 +28,7 @@ dotnet add package Neo4j.Driver
   "Neo4j": {
     "Uri": "bolt://localhost:7687",
     "User": "neo4j",
-    "Password": "testtest",
+    "Password": "test1234",
     "Database": "neo4j"
   }
 }
